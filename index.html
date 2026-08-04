@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GrigoriNightDragon — MMORPG</title>
+<meta name="description" content="GrigoriNightDragon is a dynamic MMORPG set in the realm of Elyria, with evolving AI bosses, guild wars and legendary loot. Download the launcher and play free."/>
+<meta name="theme-color" content="#07040d"/>
+<link rel="icon" href="assets/gnd-mark.png"/>
+<link rel="apple-touch-icon" href="assets/gnd-mark.png"/>
+<link rel="canonical" href="https://grigorinight.github.io/gnd-news/"/>
+
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="GrigoriNightDragon"/>
+<meta property="og:title" content="GrigoriNightDragon — MMORPG"/>
+<meta property="og:description" content="Evolving AI bosses. Guild wars. Legendary loot. Enter the realm of Elyria."/>
+<meta property="og:image" content="https://grigorinight.github.io/gnd-news/assets/gnd-og.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#07040d;
+  --bg-2:#0c0718;
+  --panel:rgba(168,85,247,.05);
+  --line:rgba(196,181,253,.13);
+  --line-hi:rgba(196,181,253,.3);
+  --ink:#f3f0ff;
+  --muted:#a8a1c0;
+  --dim:#7b7395;
+  --violet:#a855f7;
+  --violet-deep:#7c3aed;
+  --violet-dim:#4c1d95;
+  --gold:#e3b35c;
+  --gold-hi:#f5d894;
+  --gold-deep:#a97b2e;
+  --shell:min(1180px,100% - 3rem);
+  --shell-pad:3rem;
+  --step:clamp(2.5rem,1.4rem + 3.6vw,5rem);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
+body{
+  margin:0;color:var(--ink);
+  background:var(--bg);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:inherit}
+img{max-width:100%;display:block}
+p{margin:0}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+
+.shell{width:var(--shell);margin-inline:auto}
+/* Narrow phones need the gutter back before the unbreakable wordmark fits. */
+@media (max-width:400px){:root{--shell:100% - 2rem}}
+section{padding-block:var(--step)}
+h1,h2,h3{margin:0;line-height:1.12;text-transform:uppercase;letter-spacing:.06em;font-weight:900}
+h2{font-size:clamp(1.65rem,1.1rem + 2.1vw,2.6rem)}
+h3{font-size:1.05rem;letter-spacing:.08em}
+.eyebrow{
+  font-size:.7rem;text-transform:uppercase;letter-spacing:.24em;
+  font-weight:800;margin:0 0 .95rem;
+  color:var(--gold);
+}
+.lede{color:#cfc8e6;max-width:52ch}
+
+/* ---------------- nav ---------------- */
+.nav{
+  position:sticky;top:0;z-index:40;
+  background:rgba(7,4,13,.85);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{display:flex;align-items:center;gap:1.4rem;height:4.3rem}
+.brand{display:flex;align-items:center;gap:.75rem;text-decoration:none;flex:none}
+.sigil{width:2.15rem;height:2.15rem;flex:none}
+.brand-txt{display:flex;flex-direction:column;line-height:1.18}
+.brand-txt b{
+  font-size:.83rem;text-transform:uppercase;letter-spacing:.17em;font-weight:800;
+  background:linear-gradient(100deg,var(--gold-hi),var(--gold) 60%,#c9922f);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.brand-txt span{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.nav-links{display:flex;gap:1.7rem;margin-left:auto}
+.nav-links a{
+  text-decoration:none;font-size:.72rem;text-transform:uppercase;
+  letter-spacing:.16em;color:var(--muted);transition:color .18s;white-space:nowrap;
+}
+.nav-links a:hover{color:var(--gold-hi)}
+.nav-links+.cta{margin-left:0}
+.nav .cta{margin-left:auto}
+@media (max-width:880px){.nav-links{display:none}}
+/* Below ~560px the sigil, wordmark and CTA stop fitting on one row. Drop the
+   "MMORPG" sub-label and tighten the wordmark rather than let the CTA push out. */
+@media (max-width:560px){
+  .nav-in{gap:.75rem}
+  .brand-txt{min-width:0}
+  .brand-txt b{font-size:.7rem;letter-spacing:.1em}
+  .brand-txt span{display:none}
+}
+/* At 320px the wordmark and the CTA can't share the bar. The sigil carries the
+   brand rather than the "Play free" button being pushed off-screen. */
+@media (max-width:380px){.brand-txt{display:none}}
+
+/* ---------------- buttons ---------------- */
+.cta,.ghost{
+  display:inline-block;text-decoration:none;font-weight:800;
+  text-transform:uppercase;letter-spacing:.15em;font-size:.75rem;
+  padding:.88rem 1.7rem;border-radius:.65rem;white-space:nowrap;
+  transition:filter .18s,background .18s,border-color .18s,box-shadow .18s;
+}
+.cta{
+  color:#1a1005;border:0;
+  background:linear-gradient(100deg,var(--gold-hi),var(--gold) 45%,var(--gold-deep));
+  box-shadow:0 0 0 1px rgba(245,216,148,.28),0 10px 30px -12px rgba(227,179,92,.6);
+}
+.cta:hover{filter:brightness(1.09)}
+.ghost{border:1px solid var(--line-hi);color:var(--ink);background:rgba(168,85,247,.06)}
+.ghost:hover{background:rgba(168,85,247,.15);border-color:var(--violet)}
+.cta.sm,.ghost.sm{padding:.6rem 1.15rem;font-size:.67rem}
+
+/* ---------------- hero ---------------- */
+.hero{position:relative;overflow:hidden;padding-block:clamp(2.5rem,1rem + 5vw,5rem)}
+.hero::before{
+  content:"";position:absolute;inset:-30% -10% auto -10%;height:150%;pointer-events:none;
+  background:
+    radial-gradient(ellipse 55% 45% at 72% 32%,rgba(124,58,237,.4),transparent 65%),
+    radial-gradient(ellipse 45% 40% at 22% 65%,rgba(76,29,149,.32),transparent 68%);
+}
+.hero-in{
+  position:relative;z-index:1;display:grid;gap:clamp(2rem,1rem + 4vw,4rem);
+  grid-template-columns:1.05fr .95fr;align-items:center;
+}
+/* "GrigoriNightDragon" is one unbreakable 18-character word, so the hero type is
+   sized to the width that word needs, not to the width "Enter" could take. The
+   key art carries the big gold wordmark; this line only has to partner it. */
+.hero h1{font-size:clamp(1.25rem,.85rem + 2.4vw,2.55rem)}
+.hero h1 em{
+  font-style:normal;display:block;letter-spacing:.02em;
+  background:linear-gradient(100deg,var(--gold-hi),var(--gold) 55%,#c9922f);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero .lede{margin-top:1.35rem;font-size:clamp(1rem,.95rem + .35vw,1.18rem)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2.1rem}
+.hero-note{margin-top:1.05rem;font-size:.75rem;color:var(--dim)}
+.art{position:relative}
+.art::before{
+  content:"";position:absolute;inset:6%;border-radius:50%;
+  background:radial-gradient(circle,rgba(168,85,247,.55),transparent 68%);
+  filter:blur(46px);
+}
+/* height:auto is load-bearing — without it the img's height="1000" attribute wins
+   over the intrinsic ratio and the art renders 1000px tall inside a 464px box. */
+.art img{position:relative;width:100%;height:auto;border-radius:1rem}
+@media (max-width:900px){
+  .hero-in{grid-template-columns:1fr}
+  .art{order:-1;max-width:440px;margin-inline:auto}
+  .hero h1{max-width:none}
+}
+
+/* ---------------- live strip ---------------- */
+.strip{border-block:1px solid var(--line);background:rgba(168,85,247,.045)}
+.strip-in{display:flex;align-items:center;gap:1.05rem;padding-block:.95rem;flex-wrap:wrap}
+.pip{
+  display:inline-flex;align-items:center;gap:.5rem;flex:none;
+  font-size:.65rem;text-transform:uppercase;letter-spacing:.19em;font-weight:800;color:var(--violet);
+}
+.pip::before{
+  content:"";width:.45rem;height:.45rem;border-radius:50%;background:var(--violet);
+  box-shadow:0 0 0 0 rgba(168,85,247,.6);animation:pulse 2.4s ease-out infinite;
+}
+@keyframes pulse{70%{box-shadow:0 0 0 .6rem rgba(168,85,247,0)}100%{box-shadow:0 0 0 0 rgba(168,85,247,0)}}
+.strip-txt{color:var(--muted);font-size:.87rem;min-width:0}
+.strip-txt b{color:var(--ink);font-weight:700}
+
+/* ---------------- cards ---------------- */
+.grid{display:grid;gap:1.1rem;margin-top:2.1rem}
+/* 320px floor keeps the six feature cards at a balanced 3x2 on desktop
+   instead of 4+2 with two orphans on the second row. */
+.g3{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:.9rem;padding:1.65rem;
+  transition:border-color .2s,background .2s,transform .2s;
+}
+.card:hover{border-color:var(--line-hi);background:rgba(168,85,247,.1);transform:translateY(-2px)}
+.card .ico{font-size:1.45rem;line-height:1;margin-bottom:.85rem}
+.card h3{color:var(--gold-hi)}
+.card p{color:var(--muted);font-size:.92rem;margin-top:.6rem}
+
+/* ---------------- world ---------------- */
+.zone{display:flex;gap:1.15rem;padding:1.35rem 0;border-bottom:1px solid var(--line)}
+.zone:last-child{border-bottom:0}
+.zone-n{
+  font-size:.72rem;font-weight:800;color:var(--violet);letter-spacing:.16em;
+  padding-top:.22rem;flex:none;width:2.5rem;
+}
+.zone h3{margin-bottom:.35rem;color:var(--gold-hi)}
+.zone p{color:var(--muted);font-size:.92rem}
+
+/* ---------------- news ---------------- */
+.news-head{display:flex;align-items:flex-end;gap:1rem;flex-wrap:wrap}
+.news-head a{
+  margin-left:auto;font-size:.72rem;text-transform:uppercase;
+  letter-spacing:.15em;color:var(--muted);text-decoration:none;
+}
+.news-head a:hover{color:var(--gold-hi)}
+.n-card{background:var(--panel);border:1px solid var(--line);border-radius:.9rem;padding:1.55rem}
+.n-tag{font-size:.65rem;text-transform:uppercase;letter-spacing:.17em;color:var(--violet);font-weight:800}
+.n-title{font-weight:800;font-size:1.12rem;margin-top:.45rem;line-height:1.28;color:var(--gold-hi)}
+.n-date{font-size:.68rem;color:var(--dim);margin-top:.22rem}
+.n-body{color:var(--muted);font-size:.92rem;margin-top:.7rem;white-space:pre-line}
+.n-msg{color:var(--dim);font-size:.9rem;grid-column:1/-1}
+.skel{
+  height:8.5rem;border-radius:.9rem;border:1px solid var(--line);
+  background:linear-gradient(100deg,rgba(168,85,247,.04) 30%,rgba(168,85,247,.13) 50%,rgba(168,85,247,.04) 70%);
+  background-size:220% 100%;animation:shine 1.5s linear infinite;
+}
+@keyframes shine{to{background-position:-220% 0}}
+
+/* ---------------- download ---------------- */
+.dl{
+  border:1px solid var(--line);border-radius:1.1rem;
+  padding:clamp(1.7rem,1rem + 2.2vw,2.8rem);
+  background:
+    radial-gradient(ellipse 70% 90% at 88% 0%,rgba(124,58,237,.3),transparent 62%),
+    linear-gradient(180deg,rgba(168,85,247,.07),rgba(168,85,247,.02));
+}
+.dl-grid{display:grid;gap:2.2rem;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));align-items:start}
+.steps{counter-reset:s;margin:0;padding:0;list-style:none}
+.steps li{counter-increment:s;position:relative;padding-left:2.2rem;margin-bottom:.85rem;color:var(--muted);font-size:.92rem}
+.steps li::before{
+  content:counter(s);position:absolute;left:0;top:.08rem;
+  width:1.45rem;height:1.45rem;border-radius:50%;
+  border:1px solid var(--line-hi);background:rgba(168,85,247,.12);
+  display:grid;place-items:center;font-size:.68rem;font-weight:800;color:var(--gold-hi);
+}
+.specs{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.55rem 1.2rem;font-size:.88rem}
+.specs dt{color:var(--dim);text-transform:uppercase;letter-spacing:.12em;font-size:.65rem;padding-top:.2rem}
+.specs dd{margin:0;color:var(--muted)}
+.dl h3{color:var(--gold-hi)}
+
+/* ---------------- faq ---------------- */
+.faq{border-top:1px solid var(--line);margin-top:1.9rem}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{
+  cursor:pointer;padding:1.1rem 0;font-weight:700;font-size:.98rem;
+  list-style:none;display:flex;align-items:center;gap:1rem;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";margin-left:auto;color:var(--violet);font-size:1.35rem;font-weight:400;line-height:1}
+.faq details[open] summary{color:var(--gold-hi)}
+.faq details[open] summary::after{content:"–"}
+.faq p{padding-bottom:1.25rem;color:var(--muted);font-size:.92rem;max-width:78ch}
+.faq a{color:var(--violet)}
+
+/* ---------------- footer ---------------- */
+footer{border-top:1px solid var(--line);padding-block:2.6rem;margin-top:var(--step)}
+.foot{display:flex;gap:1.6rem;flex-wrap:wrap;align-items:center;font-size:.8rem;color:var(--dim)}
+.foot a{color:var(--muted);text-decoration:none}
+.foot a:hover{color:var(--gold-hi)}
+.foot .sp{margin-left:auto}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav">
+  <div class="shell nav-in">
+    <a class="brand" href="#top">
+      <svg class="sigil" viewBox="0 0 48 48" aria-hidden="true">
+        <defs>
+          <linearGradient id="gld" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f5d894"/><stop offset="1" stop-color="#a97b2e"/>
+          </linearGradient>
+          <linearGradient id="vio" x1=".5" y1="0" x2=".5" y2="1">
+            <stop offset="0" stop-color="#d8b4fe"/><stop offset="1" stop-color="#7c3aed"/>
+          </linearGradient>
+        </defs>
+        <path fill="url(#vio)" d="M24 2 38 24 24 46 10 24 24 2Z"/>
+        <path fill="url(#gld)" d="M24 8.5 33 24l-9 15.5L15 24l9-15.5Zm0 5.6L18.6 24 24 33.4 29.4 24 24 14.1Z"/>
+        <path fill="url(#gld)" d="M24 19.5 27.2 24 24 28.5 20.8 24 24 19.5Z"/>
+      </svg>
+      <span class="brand-txt">
+        <b>GrigoriNightDragon</b>
+        <span>MMORPG</span>
+      </span>
+    </a>
+    <nav class="nav-links">
+      <a href="#world">World</a>
+      <a href="#features">Features</a>
+      <a href="#news">News</a>
+      <a href="#download">Download</a>
+      <a href="#support">Support</a>
+    </nav>
+    <a class="cta sm" href="#download">Play free</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="shell hero-in">
+    <div>
+      <p class="eyebrow">Free to play &middot; PC</p>
+      <h1>Enter <em>GrigoriNightDragon</em></h1>
+      <p class="lede">A dynamic MMORPG world with evolving AI bosses, guild wars and legendary loot. Carve your name into the realm of Elyria.</p>
+      <div class="hero-actions">
+        <a class="cta" href="#download">Download the launcher</a>
+        <a class="ghost" href="#world">Explore Elyria</a>
+      </div>
+      <p class="hero-note">Windows installer &middot; Launcher v1.0.0 &middot; Free account required</p>
+    </div>
+    <div class="art">
+      <picture>
+        <source srcset="assets/gnd-key-art.webp" type="image/webp"/>
+        <img src="assets/gnd-key-art.jpg" width="1000" height="1000"
+             alt="The GrigoriNightDragon crest: a violet arcane crystal in an ornate gold frame, flanked by two gnome artificers at their forges."/>
+      </picture>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LIVE STRIP ================= -->
+<div class="strip">
+  <div class="shell strip-in">
+    <span class="pip">Latest</span>
+    <p class="strip-txt" id="stripTxt">Loading the latest update&hellip;</p>
+    <a class="ghost sm" href="#news" style="margin-left:auto">All news</a>
+  </div>
+</div>
+
+<!-- ================= FEATURES ================= -->
+<section id="features" class="shell">
+  <p class="eyebrow">What you're walking into</p>
+  <h2>A world that fights back</h2>
+  <div class="grid g3">
+    <article class="card">
+      <div class="ico">🐉</div>
+      <h3>Evolving AI bosses</h3>
+      <p>Bosses learn from the raids that beat them. Every kill changes how the next fight opens, so a strategy only works until the world adapts to it.</p>
+    </article>
+    <article class="card">
+      <div class="ico">⚔️</div>
+      <h3>Guild wars</h3>
+      <p>Band together, claim territory and defend it. Guild conflict is persistent — what you take on a Friday night is still yours to hold on Monday.</p>
+    </article>
+    <article class="card">
+      <div class="ico">💎</div>
+      <h3>Legendary loot</h3>
+      <p>Chase drops that actually change how you play. Rare gear is earned out in the world, not handed out at the login screen.</p>
+    </article>
+    <article class="card">
+      <div class="ico">🔮</div>
+      <h3>The realm of Elyria</h3>
+      <p>An open world of ruined academies, dragon roosts and contested wilds — built to be explored, not funnelled through.</p>
+    </article>
+    <article class="card">
+      <div class="ico">🛡️</div>
+      <h3>One account, everywhere</h3>
+      <p>Your character, wallet and inventory live with your account. Sign in from the launcher and pick up exactly where you stopped.</p>
+    </article>
+    <article class="card">
+      <div class="ico">✨</div>
+      <h3>Limited edition drops</h3>
+      <p>Some store items are one per account, for life. When a limited run closes, the people who own it are the only ones who ever will.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ================= WORLD ================= -->
+<section id="world" class="shell">
+  <p class="eyebrow">The realm</p>
+  <h2>Elyria</h2>
+  <div class="grid g2">
+    <div>
+      <p class="lede">
+        Elyria is the realm the dragon left behind — a continent of half-drowned ruins, arcane
+        colleges and territory no guild has held for long. It is a living map: bosses migrate,
+        war fronts shift, and the places worth fighting over change with them.
+      </p>
+      <a class="ghost sm" href="#download" style="margin-top:1.6rem">Set out</a>
+    </div>
+    <div>
+      <div class="zone">
+        <span class="zone-n">01</span>
+        <div>
+          <h3>The Wizard Academy</h3>
+          <p>Elyria's fallen school of magic. Its lower halls still run on old wards, and something down there is still teaching.</p>
+        </div>
+      </div>
+      <div class="zone">
+        <span class="zone-n">02</span>
+        <div>
+          <h3>Dragon roosts</h3>
+          <p>High cliff nests where the oldest AI bosses make their stand. Bring a raid. Bring a second plan.</p>
+        </div>
+      </div>
+      <div class="zone">
+        <span class="zone-n">03</span>
+        <div>
+          <h3>Contested wilds</h3>
+          <p>Open ground between guild holdings, where territory changes hands and the loot is worth the risk.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NEWS ================= -->
+<section id="news" class="shell">
+  <div class="news-head">
+    <div>
+      <p class="eyebrow">Dispatches</p>
+      <h2>Latest news</h2>
+    </div>
+    <a href="news.html">Full news page &rarr;</a>
+  </div>
+  <div class="grid g2" id="newsList" aria-live="polite" aria-busy="true">
+    <div class="skel"></div><div class="skel"></div>
+  </div>
+</section>
+
+<!-- ================= DOWNLOAD ================= -->
+<section id="download" class="shell">
+  <div class="dl">
+    <p class="eyebrow">Get in</p>
+    <h2>Download &amp; play free</h2>
+    <p class="lede" style="margin-top:.95rem">
+      The desktop launcher installs the game, keeps it patched and gets you to the login screen.
+    </p>
+    <a class="cta" style="margin-top:1.9rem"
+       href="https://github.com/GrigoriNight/GrigoriNightDragon-Launcher-Tauri/releases/download/latest-build/GrigoriNightDragon-Setup.exe">
+       Download for Windows
+    </a>
+    <div class="dl-grid" style="margin-top:2.7rem">
+      <div>
+        <h3 style="margin-bottom:1.15rem">Getting started</h3>
+        <ol class="steps">
+          <li>Download and run <b>GrigoriNightDragon-Setup.exe</b>.</li>
+          <li>Open the launcher and create a free account, or sign in.</li>
+          <li>Verify your email so you can recover the account later.</li>
+          <li>Let the launcher finish installing, then hit play.</li>
+        </ol>
+      </div>
+      <div>
+        <h3 style="margin-bottom:1.15rem">Details</h3>
+        <dl class="specs">
+          <dt>Platform</dt><dd>Windows (64-bit)</dd>
+          <dt>Launcher</dt><dd>v1.0.0</dd>
+          <dt>Price</dt><dd>Free to play</dd>
+          <dt>Account</dt><dd>Required — created in the launcher</dd>
+          <dt>Install</dt><dd>Managed and patched by the launcher</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SUPPORT ================= -->
+<section id="support" class="shell">
+  <p class="eyebrow">Stuck?</p>
+  <h2>Support</h2>
+  <div class="faq">
+    <details>
+      <summary>The game won't start, or files look corrupted</summary>
+      <p>Open the launcher, go to <b>Support</b> and choose <b>Verify game files</b>. It re-checks your install and re-downloads anything broken, without a full reinstall.</p>
+    </details>
+    <details>
+      <summary>I can't sign in</summary>
+      <p>Use the account button in the launcher to sign in or register. If you've forgotten your password, <b>Forgot password?</b> on the login form emails you a reset link. Make sure you're using the email address you verified.</p>
+    </details>
+    <details>
+      <summary>I found a bug</summary>
+      <p>Report it from <b>Support &rarr; Report a bug</b> in the launcher. Your account and device details attach automatically, which is usually what's needed to reproduce it — so in-launcher reports get fixed faster than emails.</p>
+    </details>
+    <details>
+      <summary>I think I was banned by mistake</summary>
+      <p>Open <b>Support &rarr; Appeal a ban</b> in the launcher and tell us what happened. Appeals are reviewed by a person, and you'll get a reply at your account email.</p>
+    </details>
+    <details>
+      <summary>Is the game free?</summary>
+      <p>Yes — GrigoriNightDragon is free to play. There's an optional in-game store, and some items are limited edition: one per account, for life.</p>
+    </details>
+    <details>
+      <summary>How do I reach a human?</summary>
+      <p>Email <a href="mailto:GrigoriNightDragon@gmail.com">GrigoriNightDragon@gmail.com</a>. Bug reports and ban appeals sent from inside the launcher land in the same place, with the diagnostics already attached.</p>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="shell foot">
+    <span>&copy; <span id="yr">2026</span> GrigoriNightDragon</span>
+    <a href="news.html">News</a>
+    <a href="#download">Download</a>
+    <a href="mailto:GrigoriNightDragon@gmail.com">Contact</a>
+    <span class="sp">Built for the realm of Elyria</span>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"VideoGame",
+  "name":"GrigoriNightDragon",
+  "description":"A dynamic MMORPG world with evolving AI bosses, guild wars and legendary loot, set in the realm of Elyria.",
+  "genre":["MMORPG","Role-playing game"],
+  "gamePlatform":"PC (Windows)",
+  "operatingSystem":"Windows",
+  "applicationCategory":"Game",
+  "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
+}
+</script>
+
+<script>
+(function(){
+  "use strict";
+
+  document.getElementById("yr").textContent = new Date().getFullYear();
+
+  /* News is published to news.html by the launcher's admin panel, which rewrites the
+     whole file around a #gnd-news-data JSON block. Read that same block so the site
+     and the launcher can never disagree, and there is only one place to edit.
+     Same-origin news.html first; the raw GitHub copy is the fallback for when this
+     page is hosted elsewhere (e.g. the GoDaddy site). */
+  var SOURCES = [
+    "news.html",
+    "https://raw.githubusercontent.com/GrigoriNight/gnd-news/main/news.html"
+  ];
+
+  var list  = document.getElementById("newsList");
+  var strip = document.getElementById("stripTxt");
+
+  function esc(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  function parseNews(html){
+    // Same shape the launcher's own parser looks for.
+    var m = html.match(/<script id="gnd-news-data"[^>]*>([\s\S]*?)<\/script>/i);
+    if(!m) return null;
+    try{
+      var data = JSON.parse(m[1]);
+      return Array.isArray(data) ? data : null;
+    }catch(e){ return null; }
+  }
+
+  function render(news){
+    list.setAttribute("aria-busy","false");
+
+    if(!news || !news.length){
+      list.innerHTML = '<p class="n-msg">No news posted yet — check back soon.</p>';
+      strip.textContent = "No updates posted yet.";
+      return;
+    }
+
+    list.innerHTML = news.map(function(n){
+      return '<article class="n-card">'
+        + '<div class="n-tag">' + esc(n.tag || "News") + '</div>'
+        + '<h3 class="n-title">' + esc(n.title || "") + '</h3>'
+        + (n.date ? '<div class="n-date">' + esc(n.date) + '</div>' : '')
+        + '<p class="n-body">' + esc(n.body || "") + '</p>'
+        + '</article>';
+    }).join("");
+
+    var top = news[0];
+    strip.innerHTML = '<b>' + esc(top.title || "Update") + '</b> — ' + esc(top.body || "");
+  }
+
+  function load(i){
+    if(i >= SOURCES.length){
+      list.setAttribute("aria-busy","false");
+      list.innerHTML = '<p class="n-msg">Couldn\'t load the news right now. '
+        + '<a href="news.html" style="color:var(--violet)">Open the news page</a> instead.</p>';
+      strip.textContent = "News is temporarily unavailable.";
+      return;
+    }
+    var url = SOURCES[i] + (SOURCES[i].indexOf("?") < 0 ? "?t=" : "&t=") + Date.now();
+    fetch(url, {cache:"no-store"})
+      .then(function(r){ if(!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
+      .then(function(t){
+        var news = parseNews(t);
+        if(!news) throw new Error("no news data block");
+        render(news);
+      })
+      .catch(function(){ load(i + 1); });
+  }
+
+  load(0);
+})();
+</script>
+</body>
+</html>
