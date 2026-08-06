@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>GrigoriNightDragon &mdash; News</title>
+
+
+
+
 <style>
   :root{color-scheme:dark}
   body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;color:#fff;
@@ -19,7 +19,7 @@
   .body{color:#9ca3af;margin-top:8px;font-size:.9rem;white-space:pre-line}
   .empty{color:#6b7280}
 </style>
-</head>
+
 <body>
   <div class="wrap">
     <h1>News</h1>
@@ -58,6 +58,11 @@
     "tag": "System Update",
     "title": "Discontinue June 2026",
     "body": "We sorry to inform you that your game was cancelled and Discontinue June 2026 due to lack of funds and employees"
+  },
+  {
+    "tag": "System Update",
+    "title": "Guild Systems",
+    "body": "You are now automatically joined the guild by default."
   }
 ]
   </script>
@@ -80,5 +85,15 @@
       }).join("");
     })();
   </script>
-</body>
-</html>
+<footer class="gnd-footer"><div class="wrap">
+  <div class="brand"><span class="dot">&#128009;</span> GrigoriNightDragon</div>
+  <nav>
+    <button onclick="showTab('play')">Home</button>
+    <button onclick="showTab('news')">News</button>
+    <button onclick="showTab('store')">Store</button>
+    <button onclick="showTab('support')">Support</button>
+    <button onclick="openAccount()">Sign In</button>
+  </nav>
+  <div class="cr">&copy; 2026 GrigoriNightDragon &mdash; a dark-fantasy MMORPG of dragons, magic &amp; night.</div>
+</div></footer></div>
+
